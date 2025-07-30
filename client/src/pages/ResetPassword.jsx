@@ -2,7 +2,7 @@ const ResetPassword = () => {
   return (
     <div className="flex h-screen w-screen">
       {/* Left image panel */}
-      <div
+      {/* <div
         className="hidden md:flex w-1/2 bg-cover bg-center"
         style={{
           backgroundImage:
@@ -12,10 +12,10 @@ const ResetPassword = () => {
         <div className="select-none bg-opacity-50 w-full h-full flex items-center justify-center text-white text-3xl font-bold">
           "Unlock Your Dream Property with Us"
         </div>
-      </div>
+      </div> */}
 
       {/* Right content */}
-      <div className="w-full md:w-1/2 flex items-center justify-center bg-white">
+      <div className="w-full flex items-center justify-center bg-white">
         <div className="w-full max-w-md bg-white shadow-lg rounded-lg p-10">
           <h1 className="text-left text-3xl font-bold text-gray-800 mb-6">
             Reset Your Password
