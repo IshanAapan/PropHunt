@@ -56,7 +56,7 @@ const ResetPassword = () => {
                   </label>
                   <Field
                     name="Password"
-                    type="Password"
+                    type="password"
                     className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Enter New Password"
                   />
@@ -76,7 +76,7 @@ const ResetPassword = () => {
                   </label>
                   <Field
                     name="newPassword"
-                    type="newPassword"
+                    type="password"
                     className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Enter New Password"
                   />
