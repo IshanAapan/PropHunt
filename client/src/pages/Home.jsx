@@ -1,4 +1,3 @@
-import NotificationPopup from "../components/NotificationPopup";
 import PropWorth from "../components/PropWorth";
 
 export default function HomePage() {
@@ -13,7 +12,6 @@ export default function HomePage() {
 
   return (
     <div className="w-full min-h-screen bg-gray-100">
-      <NotificationPopup />
       {/* Hero Section */}
       <section className="relative bg-gradient-to-r from-blue-700 to-indigo-900 text-white py-20 px-4">
         <div className="max-w-6xl mx-auto text-center">
