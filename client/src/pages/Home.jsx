@@ -1,3 +1,6 @@
+import NotificationPopup from "../components/NotificationPopup";
+import PropWorth from "../components/PropWorth";
+
 export default function HomePage() {
   const propertyImages = [
     "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80",
@@ -10,6 +13,7 @@ export default function HomePage() {
 
   return (
     <div className="w-full min-h-screen bg-gray-100">
+      <NotificationPopup />
       {/* Hero Section */}
       <section className="relative bg-gradient-to-r from-blue-700 to-indigo-900 text-white py-20 px-4">
         <div className="max-w-6xl mx-auto text-center">
@@ -104,6 +108,15 @@ export default function HomePage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+      {/* PropWorth Section */}
+      <section className="py-16 px-4">
+        <div className="max-w-[1152px] mx-auto">
+          <h2 className="text-2xl font-bold text-gray-800 mb-10 text-center">
+            Check Your Property Worth
+          </h2>
+          <PropWorth />
         </div>
       </section>
     </div>
