@@ -1,4 +1,15 @@
+import PropWorth from "../components/PropWorth";
+
 export default function HomePage() {
+  const propertyImages = [
+    "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80",
+  ];
+
   return (
     <div className="w-full min-h-screen bg-gray-100">
       {/* Hero Section */}
@@ -44,16 +55,14 @@ export default function HomePage() {
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {[1, 2, 3, 4, 5, 6].map((_, idx) => (
+            {propertyImages.map((img, idx) => (
               <div
                 key={idx}
                 className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition"
               >
                 <img
-                  src={`https://images.unsplash.com/photo-${
-                    idx + 1
-                  }00000000?auto=format&fit=crop&w=600&q=80`}
-                  alt="Property"
+                  src={img}
+                  alt={`Property ${idx + 1}`}
                   className="w-full h-48 object-cover"
                 />
                 <div className="p-4">
@@ -99,13 +108,15 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="bg-gray-800 text-white py-8 mt-12">
-        <div className="max-w-6xl mx-auto text-center text-sm">
-          © 2025 MyRealEstate — Made with ❤️ for property seekers
+      {/* PropWorth Section */}
+      <section className="py-16 px-4">
+        <div className="max-w-[1152px] mx-auto">
+          <h2 className="text-2xl font-bold text-gray-800 mb-10 text-center">
+            Check Your Property Worth
+          </h2>
+          <PropWorth />
         </div>
-      </footer>
+      </section>
     </div>
   );
 }
