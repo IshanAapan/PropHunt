@@ -24,9 +24,9 @@ export default function HomePage() {
             <input
               type="text"
               placeholder="Search by city, locality, or project"
-              className="w-full px-4 py-2 rounded-md focus:outline-none text-gray-800"
+              className="w-full px-4 py-2 rounded-md focus:outline-none text-white-900 "
             />
-            <button className="bg-white text-blue-700 px-6 py-2 rounded-md font-semibold hover:bg-gray-100">
+            <button className="bg-white text-blue-700 px-6 py-2 rounded-md font-semibold hover:bg-gray-100 cursor-pointer">
               Search
             </button>
           </div>
@@ -39,7 +39,7 @@ export default function HomePage() {
           {["Buy", "Rent", "Commercial", "Plots", "Projects"].map((label) => (
             <button
               key={label}
-              className="px-5 py-2 text-sm font-medium text-blue-700 border border-blue-700 rounded-full hover:bg-blue-700 hover:text-white transition"
+              className="px-5 py-2 text-sm font-medium text-blue-700 border border-blue-700 rounded-full hover:bg-blue-700 hover:text-white transition cursor-pointer"
             >
               {label}
             </button>
@@ -72,7 +72,7 @@ export default function HomePage() {
                   <p className="text-gray-600 text-sm mt-1">
                     ₹{40 + idx * 5} Lakhs • {950 + idx * 20} sq.ft
                   </p>
-                  <button className="mt-4 text-blue-600 font-semibold hover:underline">
+                  <button className="mt-4 text-blue-600 font-semibold hover:underline cursor-pointer">
                     View Details
                   </button>
                 </div>

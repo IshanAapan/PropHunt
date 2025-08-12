@@ -14,12 +14,12 @@ const AppRoutes = () => {
       <Header />
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/About" element={<About />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/About" element={<About />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/resetpassword" element={<ResetPassword />} />
         <Route path="/postproperty" element={<PostProperty />} />
-        <Route path="/" element={<Home />} />
       </Routes>
       <Footer />
     </BrowserRouter>
