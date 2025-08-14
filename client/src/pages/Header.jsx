@@ -37,7 +37,7 @@ const Header = () => {
             Post Your Property
           </Link>
           <Link
-            to="/signup"
+            to="/login"
             className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg shadow transition"
           >
             Sign in
