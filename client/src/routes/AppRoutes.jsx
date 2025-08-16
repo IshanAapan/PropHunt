@@ -8,6 +8,10 @@ import PostProperty from "../pages/PostProperty";
 import Header from "../pages/Header";
 import Footer from "../pages/Footer";
 import About from "../pages/About";
+import PropertyListing from "../pages/PropertyListing";
+import Contact from "../pages/Contact";
+Contact;
+
 const AppRoutes = () => {
   return (
     <BrowserRouter>
@@ -20,6 +24,8 @@ const AppRoutes = () => {
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/resetpassword" element={<ResetPassword />} />
         <Route path="/postproperty" element={<PostProperty />} />
+        <Route path="/propertylisting" element={<PropertyListing />} />
+        <Route path="/Contact" element={<Contact />} />
       </Routes>
       <Footer />
     </BrowserRouter>
