@@ -1,231 +1,326 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 const PostProperty = () => {
-  const [selectedCategory, setSelectedCategory] = useState("");
-  const [selectedSubOption, setSelectedSubOption] = useState("");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [mobile, setMobile] = useState("");
-  const [city, setCity] = useState("");
-  const [whatsappUpdates, setWhatsappUpdates] = useState(true);
+  const [propertyType, setPropertyType] = useState("Flat");
+  const [bhkType, setBhkType] = useState("1RK");
+  const [bathroomCount, setBathroomCount] = useState("1");
+  const [lookingTo, setLookingTo] = useState("Sell");
 
-  const categories = ["Residential", "Commercial", "Land/Plot"];
-  const subOptions = {
-    Residential: ["Rent", "Resale", "PG/Hostel", "Flatmates"],
-    Commercial: ["Rent", "Sale"],
-    "Land/Plot": ["Resale"],
-  };
+  const [projectName, setProjectName] = useState("");
+  const [city, setCity] = useState("");
+  const [locality, setLocality] = useState("");
+  const [emi, setEmi] = useState("");
+  const [area, setArea] = useState("");
+  const [price, setPrice] = useState("");
+  const [direction, setDirection] = useState("");
+  const [parking, setParking] = useState("");
+  const [furnishedStatus, setFurnishedStatus] = useState("");
+
+  const bhkOptions = ["1RK", "1BHK", "2BHK", "3BHK", "3BHK+"];
+  const bathroomOptions = ["1", "2", "3", "4", "4+"];
+  const lookingOptions = ["Sell", "Rent", "Airbnb"];
+  const propertyTypes = ["Flat", "PG"];
+  const [tenantType, setTenantType] = useState("");
+  const [roomType, setRoomType] = useState("");
+  const [singleRoomRent, setSingleRoomRent] = useState("");
+  const [doubleRoomRent, setDoubleRoomRent] = useState("");
+  const [amount, setAmount] = useState("");
+  const [noticePeriod, setNoticePeriod] = useState("");
+  const [foodAvailability, setFoodAvailability] = useState("");
+  const [acRooms, setAcRooms] = useState("");
+  const [rent, setRent] = useState("");
+
 
   const imageUrl =
     "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?auto=format&fit=crop&w=800&q=80";
 
-  const faqs = [
-    {
-      question: "How do I post my property?",
-      answer:
-        "Simply fill in the form and select your property details, then click submit.",
-    },
-    {
-      question: "Is posting free?",
-      answer: "Yes, you can post your first property ad for free.",
-    },
-    {
-      question: "Can I post commercial properties?",
-      answer:
-        "Yes, we support Residential, Commercial, and Land/Plot listings.",
-    },
-  ];
-
-  const handleSubmit = () => {
-    alert(
-      `Name: ${name}
-       Email: ${email}
-       Mobile: ${mobile}
-       City: ${city}
-       WhatsApp Updates: ${whatsappUpdates ? "Yes" : "No"}
-       Property Type: ${selectedCategory}
-       Ad Type: ${selectedSubOption}`
-    );
-  };
-
   return (
-    <div className="flex flex-col lg:flex-row items-start justify-center min-h-screen bg-gray-50 p-6 gap-8">
-      {/* Left Image + FAQ */}
+    <div className="min-h-screen bg-gray-100 p-6 flex flex-col lg:flex-row gap-8">
+      {/* Left Side */}
       <div className="lg:w-1/2 flex flex-col gap-6">
-        <div className="bg-white rounded-2xl shadow-lg overflow-hidden w-full h-full">
-          <img
-            src={imageUrl}
-            alt="Property"
-            className="w-full h-[500px] object-cover"
-          />
+        <div className="bg-white rounded-xl overflow-hidden shadow-lg">
+          <img src={imageUrl} alt="Property" className="w-full h-[400px] object-cover" />
         </div>
-
-        {/* FAQ Section */}
-        <div className="bg-white rounded-2xl shadow-lg p-6">
-          <h2 className="text-2xl font-bold mb-4">
-            Frequently Asked Questions
-          </h2>
-          {faqs.map((faq, index) => (
-            <div key={index} className="border-b py-3">
-              <details className="group">
-                <summary className="flex justify-between items-center cursor-pointer font-medium text-gray-700">
-                  {faq.question}
-                  <span className="transition-transform group-open:rotate-180">
-                    ▼
-                  </span>
-                </summary>
-                <p className="mt-2 text-gray-600">{faq.answer}</p>
-              </details>
-            </div>
-          ))}
+        <div className="bg-white p-6 rounded-xl shadow-lg">
+          <h2 className="text-2xl font-bold mb-4">Frequently Asked Questions</h2>
+          <details className="mb-2">
+            <summary className="cursor-pointer font-medium text-gray-700">How do I post my property?</summary>
+            <p className="mt-2 text-gray-600">Simply fill in the form and select your property details, then click submit.</p>
+          </details>
+          <details className="mb-2">
+            <summary className="cursor-pointer font-medium text-gray-700">Is posting free?</summary>
+            <p className="mt-2 text-gray-600">Yes, you can post your first property ad for free.</p>
+          </details>
+          <details>
+            <summary className="cursor-pointer font-medium text-gray-700">Can I post commercial properties?</summary>
+            <p className="mt-2 text-gray-600">Yes, we support Residential, Commercial, and Land/Plot listings.</p>
+          </details>
         </div>
       </div>
 
-      {/* Right Form */}
-      <div className="lg:w-1/2 bg-white rounded-2xl shadow-lg p-8">
-        <h1 className="text-3xl font-bold mb-6 text-gray-800">
-          Post Your Property
-        </h1>
+      {/* Right Side - Form */}
+      <div className="lg:w-1/2 bg-white p-8 rounded-xl shadow-lg">
+        <h1 className="text-2xl font-bold mb-6">Hey dev! Tell us about your Property</h1>
 
-        {/* User Info Fields */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-          {/* Name */}
-          <div>
-            <input
-              type="text"
-              placeholder="Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full border border-red-500 rounded-md p-3 outline-none"
-            />
-            <p className="text-red-500 text-sm">Enter your name</p>
-          </div>
-
-          {/* Email */}
-          <div>
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full border border-red-500 rounded-md p-3 outline-none"
-            />
-            <p className="text-red-500 text-sm">Enter your Email</p>
-          </div>
-
-          {/* Mobile */}
-          <div className="flex items-center gap-2">
-            <span className="flex items-center border border-red-500 rounded-md px-3 py-2 bg-gray-50">
-              🇮🇳 +91
-            </span>
-            <input
-              type="tel"
-              placeholder="Mobile Number"
-              value={mobile}
-              onChange={(e) => setMobile(e.target.value)}
-              className="flex-1 border border-red-500 rounded-md p-3 outline-none"
-            />
-          </div>
-          <p className="text-red-500 text-sm col-span-1 md:col-span-2 -mt-3">
-            Enter valid mobile number
-          </p>
-
-          {/* City */}
-          <div>
-            <select
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-              className="w-full border border-red-500 rounded-md p-3 outline-none"
-            >
-              <option value="">Select City</option>
-              <option value="Mumbai">Mumbai</option>
-              <option value="Delhi">Delhi</option>
-              <option value="Bangalore">Bangalore</option>
-            </select>
-            <p className="text-red-500 text-sm">Please select a valid city</p>
-          </div>
-        </div>
-
-        {/* WhatsApp Toggle */}
-        <div className="flex items-center gap-2 mb-6">
-          <span>Get updates on</span>
-          <span className="text-green-500 text-lg">🟢 WhatsApp</span>
-          <label className="inline-flex items-center cursor-pointer">
-            <input
-              type="checkbox"
-              checked={whatsappUpdates}
-              onChange={() => setWhatsappUpdates(!whatsappUpdates)}
-              className="sr-only peer"
-            />
-            <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 rounded-full peer peer-checked:bg-green-500 relative transition-all">
-              <div className="absolute top-[2px] left-[2px] w-5 h-5 bg-white rounded-full transition-all peer-checked:translate-x-full"></div>
-            </div>
-          </label>
+          <input
+            type="text"
+            placeholder="Project Name"
+            value={projectName}
+            onChange={(e) => setProjectName(e.target.value)}
+            className="border border-gray-300 rounded-md p-3"
+          />
+          <input
+            type="text"
+            placeholder="Enter City"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+            className="border border-gray-300 rounded-md p-3"
+          />
+          <input
+            type="text"
+            placeholder="Enter Locality"
+            value={locality}
+            onChange={(e) => setLocality(e.target.value)}
+            className="border border-gray-300 rounded-md p-3"
+          />
         </div>
 
         {/* Property Type */}
-        <h2 className="text-lg font-semibold mb-3 text-gray-700">
-          Property Type
-        </h2>
-        <div className="flex gap-4 mb-6">
-          {categories.map((category) => (
-            <button
-              key={category}
-              onClick={() => {
-                setSelectedCategory(category);
-                setSelectedSubOption("");
-              }}
-              className={`px-4 py-2 rounded-full border transition-all duration-300 ${
-                selectedCategory === category
-                  ? "bg-blue-600 text-white border-blue-600"
-                  : "bg-white text-gray-800 border-gray-300 hover:border-blue-400"
-              }`}
-            >
-              {category}
-            </button>
-          ))}
+        <div className="mb-4">
+          <h2 className="mb-1">Property Type</h2>
+          <div className="flex">
+            {propertyTypes.map((type) => (
+              <button
+                key={type}
+                onClick={() => setPropertyType(type)}
+                className={`flex-1 py-2 border cursor-pointer ${propertyType === type ? "bg-blue-100 text-blue-600 font-semibold" : "text-gray-600"}`}
+              >
+                {type}
+              </button>
+            ))}
+          </div>
         </div>
 
-        {/* Sub-options */}
-        {selectedCategory && (
+        {/* BHK Type */}
+        {propertyType === "Flat" && (<>
           <div>
-            <h3 className="text-md font-medium mb-3 text-gray-600">
-              Select Property Ad Type
-            </h3>
-            <div className="relative">
-              <div className="flex gap-4 border-b pb-2">
-                {subOptions[selectedCategory].map((option) => (
+            <div className="mb-4">
+              <h2 className="mb-1">BHK Type</h2>
+              <div className="grid grid-cols-5 gap-2">
+                {bhkOptions.map((bhk) => (
                   <button
-                    key={option}
-                    onClick={() => setSelectedSubOption(option)}
-                    className={`relative px-4 py-2 text-gray-700 transition-colors duration-300 ${
-                      selectedSubOption === option
-                        ? "text-blue-600 font-semibold"
-                        : "hover:text-blue-500"
-                    }`}
+                    key={bhk}
+                    onClick={() => setBhkType(bhk)}
+                    className={`py-2 border cursor-pointer ${bhkType === bhk ? "bg-blue-100 text-blue-600 font-semibold" : "text-gray-600"}`}
                   >
-                    {option}
-                    {selectedSubOption === option && (
-                      <span className="absolute left-0 -top-1 w-full h-[3px] bg-blue-600 rounded-full"></span>
-                    )}
+                    {bhk}
                   </button>
                 ))}
               </div>
             </div>
-          </div>
-        )}
 
-        {/* Submit */}
-        {selectedCategory && selectedSubOption && (
-          <div className="mt-6">
-            <button
-              onClick={handleSubmit}
-              className="px-6 py-2 bg-blue-600 text-white rounded-full shadow-md hover:bg-blue-700 transition-all"
-            >
-              Start Posting Your Ad For Free
-            </button>
+
+            {/* Bathrooms */}
+            <div className="mb-4">
+              <h2 className="mb-1">Bathrooms</h2>
+              <div className="grid grid-cols-5 gap-2">
+                {bathroomOptions.map((count) => (
+                  <button
+                    key={count}
+                    onClick={() => setBathroomCount(count)}
+                    className={`py-2 border cursor-pointer ${bathroomCount === count ? "bg-blue-100 text-blue-600 font-semibold" : "text-gray-600"}`}
+                  >
+                    {count}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Looking To */}
+            <div className="mb-4">
+              <h2 className="mb-1">You're looking to</h2>
+              <div className="flex">
+                {lookingOptions.map((opt) => (
+                  <button
+                    key={opt}
+                    onClick={() => setLookingTo(opt)}
+                    className={`flex-1 py-2 border cursor-pointer ${lookingTo === opt ? "bg-blue-100 text-blue-600 font-semibold" : "text-gray-600"}`}
+                  >
+                    {opt}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* More Fields */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+              {(lookingTo === "Sell") && (<>
+                <input
+                  type="text"
+                  placeholder="Estimated EMI"
+                  value={emi}
+                  onChange={(e) => setEmi(e.target.value)}
+                  className="border border-gray-300 rounded-md p-3"
+                />
+              </>)}
+              {(lookingTo === "Rent" || lookingTo === "Airbnb") && (<>
+                <input
+                  type="text"
+                  placeholder="Deposit Amount"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                  className="border border-gray-300 rounded-md p-3"
+                />
+              </>)}
+              {(lookingTo === "Sell" || lookingTo === "Rent") && (<>
+                <input
+                  type="text"
+                  placeholder="Built Up Area"
+                  value={area}
+                  onChange={(e) => setArea(e.target.value)}
+                  className="border border-gray-300 rounded-md p-3"
+                />
+                <select
+                  value={direction}
+                  onChange={(e) => setDirection(e.target.value)}
+                  className="border border-gray-300 rounded-md p-3"
+                >
+                  <option value="">Direction</option>
+                  <option value="North">North</option>
+                  <option value="South">South</option>
+                  <option value="East">East</option>
+                  <option value="West">West</option>
+                  <option value="North East">North East</option>
+                  <option value="South East">South East</option>
+                  <option value="North West">North West</option>
+                  <option value="South West">South West</option>
+                </select>
+              </>)}
+              <select
+                value={parking}
+                onChange={(e) => setParking(e.target.value)}
+                className="border border-gray-300 rounded-md p-3"
+              >
+                <option value="">Parking</option>
+                <option value="Available">Available</option>
+                <option value="Not Available">Not Available</option>
+              </select>
+              {(lookingTo === "Sell"|| lookingTo==="Airbnb") && (<>
+                <input
+                  type="text"
+                  placeholder="Price (in ₹)"
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
+                  className="border border-gray-300 rounded-md p-3"
+                />
+              </>)}
+              {lookingTo === "Rent" && (<>
+                <input
+                  type="text"
+                  placeholder="Rent (in ₹)"
+                  value={rent}
+                  onChange={(e) => setRent(e.target.value)}
+                  className="border border-gray-300 rounded-md p-3"
+                />
+              </>)}
+              <select
+                value={furnishedStatus}
+                onChange={(e) => setFurnishedStatus(e.target.value)}
+                className="border border-gray-300 rounded-md p-3"
+              >
+                <option value="">Furnished Status</option>
+                <option value="Fully Furnished">Fully Furnished</option>
+                <option value="Semi Furnished">Semi Furnished</option>
+                <option value="Unfurnished">Unfurnished</option>
+              </select>
+            </div>
           </div>
-        )}
+        </>)}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+          {propertyType === "PG" && (<>
+            <select
+              value={tenantType}
+              onChange={(e) => setTenantType(e.target.value)}
+              className="border border-gray-300 rounded-md p-3"
+            >
+              <option value="">Tenant Type</option>
+              <option value="Boys">Boys</option>
+              <option value="Girls">Girls</option>
+              <option value="Co-Living">Co-Living</option>
+            </select>
+            <select
+              value={roomType}
+              onChange={(e) => setRoomType(e.target.value)}
+              className="border border-gray-300 rounded-md p-3"
+            >
+              <option value="">Room Type</option>
+              <option value="single">Single Sharing</option>
+              <option value="double">Double Sharing</option>
+              <option value="triple">Triple Sharing</option>
+            </select>
+            <input
+              type="text"
+              placeholder="Single Room Rent (in ₹)"
+              value={singleRoomRent}
+              onChange={(e) => setSingleRoomRent(e.target.value)}
+              className="border border-gray-300 rounded-md p-3"
+            />
+            <input
+              type="text"
+              placeholder="Double Room Rent (in ₹)"
+              value={doubleRoomRent}
+              onChange={(e) => setDoubleRoomRent(e.target.value)}
+              className="border border-gray-300 rounded-md p-3"
+            />
+            <input
+              type="text"
+              placeholder="Deposit Amount (in ₹)"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              className="border border-gray-300 rounded-md p-3"
+            />
+            <input
+              type="text"
+              placeholder="Notice Period (in days)"
+              value={noticePeriod}
+              onChange={(e) => setNoticePeriod(e.target.value)}
+              className="border border-gray-300 rounded-md p-3"
+            />
+            <select
+              value={foodAvailability}
+              onChange={(e) => setFoodAvailability(e.target.value)}
+              className="border border-gray-300 rounded-md p-3"
+            >
+              <option value="">Food Availability</option>
+              <option value="veg">Veg</option>
+              <option value="non-veg">Non-Veg</option>
+
+            </select>
+            <select
+              value={acRooms}
+              onChange={(e) => setAcRooms(e.target.value)}
+              className="border border-gray-300 rounded-md p-3"
+            >
+              <option value="">AC Room</option>
+              <option value="available">Available</option>
+              <option value="not available">Not Available</option>
+
+            </select>
+          </>)}
+        </div>
+        <div className="mt-6">
+          <button
+            onClick={() => {
+              // You can implement your form submission logic here
+              console.log("Form submitted!");
+            }}
+            className="w-full bg-blue-600 text-white py-3 rounded-md hover:bg-blue-700 transition duration-300"
+          >
+            Submit
+          </button>
+        </div>
+
       </div>
     </div>
   );
