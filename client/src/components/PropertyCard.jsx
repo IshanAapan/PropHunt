@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const PropertyCard = ({ property }) => {
+  const navigate = useNavigate();
   return (
     <div className="bg-white border rounded-lg shadow-sm mb-4">
       {/* Header */}
@@ -86,7 +88,10 @@ const PropertyCard = ({ property }) => {
 
       {/* Footer */}
       <div className="flex justify-between items-center border-t p-4">
-        <button className="bg-red-500 text-white px-4 py-2 rounded">
+        <button
+          onClick={() => navigate("/owner-details")}
+          className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
+        >
           Get Owner Details
         </button>
         <div className="flex gap-2">
