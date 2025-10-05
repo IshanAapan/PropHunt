@@ -10,6 +10,7 @@ import Footer from "../pages/Footer";
 import About from "../pages/About";
 import PropertyListing from "../pages/PropertyListing";
 import Contact from "../pages/Contact";
+import GetOwnerDetails from "../pages/GetOwnerDetails";
 Contact;
 
 const AppRoutes = () => {
@@ -26,6 +27,7 @@ const AppRoutes = () => {
         <Route path="/postproperty" element={<PostProperty />} />
         <Route path="/propertylisting" element={<PropertyListing />} />
         <Route path="/Contact" element={<Contact />} />
+        <Route path="/owner-details" element={<GetOwnerDetails />} />
       </Routes>
       <Footer />
     </BrowserRouter>
