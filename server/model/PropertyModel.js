@@ -54,6 +54,9 @@ const PropertySchema = new mongoose.Schema(
     estimatedEMI: {
       type: Number,
     },
+    depositAmount: {
+      type: Number,
+    },
     builtupArea: {
       type: Number,
     },
