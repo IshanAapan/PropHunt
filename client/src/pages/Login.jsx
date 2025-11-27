@@ -1,7 +1,11 @@
 import React from "react";
 import { useFormik } from "formik";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const validate = (values) => {
     const errors = {};
 
@@ -21,14 +25,14 @@ const Login = () => {
       );
     }
 
-    if (!values.passWord) {
-      errors.passWord = (
+    if (!values.password) {
+      errors.password = (
         <div>
           <h4 style={{ color: "red" }}>!Required</h4>
         </div>
       );
-    } else if (values.passWord.length < 8) {
-      errors.passWord = (
+    } else if (values.password.length < 8) {
+      errors.password = (
         <div>
           <h4 style={{ color: "red" }}>!Must be More Than 8 Digits</h4>
         </div>
@@ -41,13 +45,23 @@ const Login = () => {
   const formik = useFormik({
     initialValues: {
       email: "",
-      passWord: "",
+      password: "",
     },
     validate,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
-    },
-  });
+    onSubmit: async (values) => {
+      // alert(JSON.stringify(values, null, 2));
+      try {
+        const resp = await axios.post(`${import.meta.env.VITE_API_URL}/v1/user/login`, values);
+        console.log("Login response:", resp.data);
+        console.log("Token:", resp.data.token);
+        const token = resp.data.token;
+        localStorage.setItem("token", token);
+        navigate("/");
+      } catch (error) {
+        console.error("Error during login:", error);
+      }
+    }
+  })
 
   return (
     <div className="flex h-screen w-screen">
@@ -98,14 +112,14 @@ const Login = () => {
               </label>
               <input
                 id="passWord"
-                name="passWord"
+                name="password"
                 type="password"
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="••••••••"
                 onChange={formik.handleChange}
-                value={formik.values.passWord}
+                value={formik.values.password}
               />
-              {formik.errors.passWord && <div>{formik.errors.passWord}</div>}
+              {formik.errors.password && <div>{formik.errors.password}</div>}
             </div>
 
             <div className="flex items-center justify-between text-sm">

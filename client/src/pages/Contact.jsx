@@ -1,9 +1,17 @@
 import React from "react";
+import Header from "./Header";
 
 const Contact = () => {
+  const token = localStorage.getItem("token");
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
+      {token ? (
+        <Header />
+
+      ) : (null)}
+
 
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-16">

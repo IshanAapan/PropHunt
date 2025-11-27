@@ -1,109 +1,94 @@
 import React from "react";
 import { useFormik } from "formik";
+import axios from "axios";
 
 const Signup = () => {
+  // ---------------------- VALIDATION ----------------------
   const validate = (values) => {
     const errors = {};
-    if (!values.firstName) {
-      errors.firstName = (
-        <div>
-          <h4 style={{ color: "red" }}>!Required</h4>
-        </div>
-      );
-    } else if (values.firstName.length > 15) {
-      errors.firstName = (
-        <div>
-          <h4 style={{ color: "red" }}>!Must be 15 Character or less</h4>
-        </div>
+
+    if (!values.fullname) {
+      errors.fullname = <p className="text-red-500">Required</p>;
+    } else if (values.fullname.length > 15) {
+      errors.fullname = (
+        <p className="text-red-500">Must be 15 characters or less</p>
       );
     }
 
     if (!values.email) {
-      errors.email = (
-        <div>
-          <h4 style={{ color: "red" }}>!Required</h4>
-        </div>
-      );
+      errors.email = <p className="text-red-500">Required</p>;
     } else if (
       !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
     ) {
-      errors.email = (
-        <div>
-          <h4 style={{ color: "red" }}>!Invalid Email Address</h4>
-        </div>
+      errors.email = <p className="text-red-500">Invalid Email Address</p>;
+    }
+
+    if (!values.mob) {
+      errors.mob = <p className="text-red-500">Required</p>;
+    } else if (values.mob.length !== 10) {
+      errors.mob = <p className="text-red-500">Must be 10 digits</p>;
+    }
+
+    if (!values.password) {
+      errors.password = <p className="text-red-500">Required</p>;
+    } else if (values.password.length < 8) {
+      errors.password = (
+        <p className="text-red-500">Must be more than 8 characters</p>
       );
     }
 
-    if (!values.contactNo) {
-      errors.contactNo = (
-        <div>
-          <h4 style={{ color: "red" }}>!Required</h4>
-        </div>
-      );
-    } else if (values.contactNo.length > 10) {
-      errors.contactNo = (
-        <div>
-          <h4 style={{ color: "red" }}>Must be 10 Digits</h4>
-        </div>
+    if (!values.confirmPassword) {
+      errors.confirmPassword = <p className="text-red-500">Required</p>;
+    } else if (values.confirmPassword !== values.password) {
+      errors.confirmPassword = (
+        <p className="text-red-500">Passwords must match</p>
       );
     }
 
-    if (!values.passWord) {
-      errors.passWord = (
-        <div>
-          <h4 style={{ color: "red" }}>!Required</h4>
-        </div>
-      );
-    } else if (values.passWord.length < 8) {
-      errors.passWord = (
-        <div>
-          <h4 style={{ color: "red" }}>!Must be More Than 8 Digits</h4>
-        </div>
-      );
-    }
-
-    if (!values.againPass) {
-      errors.againPass = (
-        <div>
-          <h4 style={{ color: "red" }}>!Required</h4>
-        </div>
-      );
-    } else if (
-      values.againPass !== values.passWord ||
-      values.againPass.length < 8
-    ) {
-      errors.againPass = (
-        <div>
-          <h4 style={{ color: "red" }}>
-            !Must be more than 8 digits and same as passWord
-          </h4>
-        </div>
-      );
+    if (!values.role) {
+      errors.role = <p className="text-red-500">Role is required</p>;
     }
 
     return errors;
   };
 
+  // ---------------------- FORMIK ----------------------
   const formik = useFormik({
     initialValues: {
-      firstName: "",
+      fullname: "",
       email: "",
-      contactNo: "",
-      passWord: "",
-      againPass: "",
+      mob: "",
+      password: "",
+      confirmPassword: "",
+      role: "",
     },
     validate,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: async (values) => {
+      console.log("Submitting: ", values);
+      console.log("API URL:", import.meta.env.VITE_API_URL);
+
+
+      try {
+        const resp = await axios.post(`${import.meta.env.VITE_API_URL}/v1/user/register`, values);
+        console.log("User registered:", resp.data);
+        alert("User registered successfully!");
+        formik.resetForm();
+
+      } catch (error) {
+        console.error("Error registering user:", error);
+      }
     },
   });
+
+  // ---------------------- UI ----------------------
   return (
     <div className="flex h-screen w-screen">
+      {/* Left Side Banner */}
       <div
         className="hidden md:flex w-1/2 bg-cover bg-center"
         style={{
           backgroundImage:
-            "url('https://images.unsplash.com/photo-1558036117-15d82a90b9b1?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
+            "url('https://images.unsplash.com/photo-1558036117-15d82a90b9b1?q=80&w=1470&auto=format&fit=crop')",
         }}
       >
         <div className="select-none bg-opacity-50 w-full h-full flex items-center justify-center text-white text-3xl font-bold">
@@ -111,6 +96,7 @@ const Signup = () => {
         </div>
       </div>
 
+      {/* Right Side Form */}
       <div className="w-full md:w-1/2 flex items-center justify-center bg-white">
         <div className="w-full max-w-md p-8">
           <h2 className="text-3xl font-semibold text-gray-800 mb-6">
@@ -118,27 +104,27 @@ const Signup = () => {
           </h2>
 
           <form onSubmit={formik.handleSubmit} className="space-y-4">
+            {/* Full Name */}
             <div>
               <label
-                htmlFor="firstName"
+                htmlFor="fullname"
                 className="block mb-1 text-sm text-gray-600"
               >
                 Full Name
               </label>
               <input
-                id="firstName"
-                name="firstName"
+                id="fullname"
+                name="fullname"
                 type="text"
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="John Doe"
                 onChange={formik.handleChange}
-                value={formik.values.firstName}
+                value={formik.values.fullname}
               />
-              {formik.errors.firstName ? (
-                <div>{formik.errors.firstName}</div>
-              ) : null}
+              {formik.errors.fullname}
             </div>
 
+            {/* Email */}
             <div>
               <label
                 htmlFor="email"
@@ -150,88 +136,116 @@ const Signup = () => {
                 id="email"
                 name="email"
                 type="email"
-                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="you@example.com"
+                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 onChange={formik.handleChange}
                 value={formik.values.email}
               />
-              {formik.errors.email ? <div>{formik.errors.email}</div> : null}
+              {formik.errors.email}
             </div>
+
+            {/* Contact Number */}
             <div>
               <label
-                htmlFor="contactNo"
+                htmlFor="mob"
                 className="block mb-1 text-sm text-gray-600"
               >
                 Contact No.
               </label>
               <input
-                id="contactNo"
-                name="contactNo"
+                id="mob"
+                name="mob"
                 type="tel"
+                placeholder="1234567890"
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="+911234567890"
                 onChange={formik.handleChange}
-                value={formik.values.contactNo}
+                value={formik.values.mob}
               />
-              {formik.errors.contactNo ? (
-                <div>{formik.errors.contactNo}</div>
-              ) : null}
+              {formik.errors.mob}
             </div>
 
+            {/* Password */}
             <div>
               <label
-                htmlFor="passWord"
+                htmlFor="password"
                 className="block mb-1 text-sm text-gray-600"
               >
                 Password
               </label>
               <input
-                id="passWord"
-                name="passWord"
+                id="password"
+                name="password"
                 type="password"
-                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="••••••••"
-                onChange={formik.handleChange}
-                value={formik.values.passWord}
-              />
-              {formik.errors.passWord ? (
-                <div>{formik.errors.passWord}</div>
-              ) : null}
-            </div>
-            <div>
-              <label
-                htmlFor="againPass"
-                className="block mb-1 text-sm text-gray-600"
-              >
-                Password
-              </label>
-              <input
-                id="againPass"
-                name="againPass"
-                type="password"
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="••••••••"
                 onChange={formik.handleChange}
-                value={formik.values.againPass}
+                value={formik.values.password}
               />
-              {formik.errors.againPass ? (
-                <div>{formik.errors.againPass}</div>
-              ) : null}
+              {formik.errors.password}
             </div>
 
+            {/* Confirm Password */}
+            <div>
+              <label
+                htmlFor="confirmPassword"
+                className="block mb-1 text-sm text-gray-600"
+              >
+                Confirm Password
+              </label>
+              <input
+                id="confirmPassword"
+                name="confirmPassword"
+                type="password"
+                placeholder="••••••••"
+                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                onChange={formik.handleChange}
+                value={formik.values.confirmPassword}
+              />
+              {formik.errors.confirmPassword}
+            </div>
+
+            {/* Role */}
+            <div>
+              <label
+                htmlFor="role"
+                className="block mb-1 text-sm text-gray-600"
+              >
+                Role
+              </label>
+
+              <select
+                id="role"
+                name="role"
+                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+                onChange={formik.handleChange}
+                value={formik.values.role}
+              >
+                <option value="" disabled>
+                  Select Role
+                </option>
+                <option value="tenant">Tenant</option>
+                <option value="owner">Owner</option>
+                <option value="admin">Admin</option>
+              </select>
+
+              {formik.errors.role}
+            </div>
+
+            {/* Terms & Conditions */}
             <div className="flex items-center text-sm">
               <input type="checkbox" className="mr-2" />
               <span>
                 I agree to the{" "}
-                <a href="#" className="text-blue-500 hover:underline">
+                <a href="#" className="text-blue-500 underline">
                   terms and conditions
                 </a>
               </span>
             </div>
 
+            {/* Submit Button */}
             <button
               type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 cursor-pointer text-white py-2 rounded-md transition"
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md transition cursor-pointer"
             >
               Sign Up
             </button>
@@ -239,7 +253,7 @@ const Signup = () => {
 
           <p className="mt-6 text-sm text-center text-gray-600">
             Already have an account?{" "}
-            <a href="login" className="text-blue-500 hover:underline">
+            <a href="login" className="text-blue-500 underline">
               Sign in
             </a>
           </p>
