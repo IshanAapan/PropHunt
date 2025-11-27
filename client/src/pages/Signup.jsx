@@ -69,7 +69,7 @@ const Signup = () => {
 
 
       try {
-        const resp = await axios.post(`${import.meta.env.VITE_API_URL}/v1/user/register`, values);
+        const resp = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/user/register`, values);
         console.log("User registered:", resp.data);
         alert("User registered successfully!");
         formik.resetForm();
