@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import PropertyFilter from "../components/PropertyFilter";
 import PropertyCard from "../components/PropertyCard";
+import Header from "./Header";
 
 const PropertyListing = () => {
   const [rent, setRent] = useState(0);
@@ -39,27 +40,36 @@ const PropertyListing = () => {
     },
   ];
 
+  const token = localStorage.getItem("token");
+
   return (
-    <div className="flex flex-col lg:flex-row w-full min-h-screen bg-gray-50">
-      {/* Left Sidebar - Filters */}
-      <PropertyFilter
-        rent={rent}
-        setRent={setRent}
-        area={area}
-        setArea={setArea}
-      />
+    <>
+      {token ? (
+        <Header />
 
-      <main className="w-full lg:w-3/4 p-4">
-        <h2 className="text-lg font-semibold mb-4">
-          {properties.length} - Commercial Properties for Rent in Vishali
-          Garments, Delhi
-        </h2>
+      ) : (null)}
 
-        {properties.map((property, index) => (
-          <PropertyCard key={index} property={property} />
-        ))}
-      </main>
-    </div>
+      <div className="flex flex-col lg:flex-row w-full min-h-screen bg-gray-50">
+        {/* Left Sidebar - Filters */}
+        <PropertyFilter
+          rent={rent}
+          setRent={setRent}
+          area={area}
+          setArea={setArea}
+        />
+
+        <main className="w-full lg:w-3/4 p-4">
+          <h2 className="text-lg font-semibold mb-4">
+            {properties.length} - Commercial Properties for Rent in Vishali
+            Garments, Delhi
+          </h2>
+
+          {properties.map((property, index) => (
+            <PropertyCard key={index} property={property} />
+          ))}
+        </main>
+      </div>
+    </>
   );
 };
 

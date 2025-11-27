@@ -21,11 +21,11 @@ const PropertySchema = new mongoose.Schema(
     },
     tenantType: {
       type: String,
-      enum: ["Boys", "Girls", "Co-Living"],
+      enum: ["Boys", "Girls", "Co-Living", ""],
     },
     roomType: {
       type: String,
-      enum: ["Single Sharing", "Double Sharing", "Triple Sharing"],
+      enum: ["single", "double", "triple", ""],
     },
     singleRoomRent: Number,
     doubleRoomRent: Number,
@@ -33,23 +33,26 @@ const PropertySchema = new mongoose.Schema(
     noticePeriod: Number,
     foodAvailability: {
       type: String,
-      enum: ["Veg", "Non-Veg", "Both (Veg & Non-Veg)"],
+      enum: ["veg", "non-veg", "both",""],
     },
     acRoom: {
       type: String,
-      enum: ["AC", "Non-AC"],
+      enum: ["available", "not available","both",""],
     },
     bhkType: {
       type: String,
-      enum: ["1RK", "1BHK", "2BHK", "3BHK", "3BHK+"],
+      enum: ["1RK", "1BHK", "2BHK", "3BHK", "3BHK+",""],
     },
     bathrooms: {
       type: Number,
       enum: [1, 2, 3, 4, 5],
     },
+    rent:{
+      type: Number,
+    },
     lookingto: {
       type: String,
-      enum: ["rent", "sale", "airbnb"],
+      enum: ["rent", "sell", "airbnb",""],
     },
     estimatedEMI: {
       type: Number,
@@ -67,22 +70,23 @@ const PropertySchema = new mongoose.Schema(
         "South",
         "East",
         "West",
-        "North-East",
-        "North-West",
-        "South-East",
-        "South-West",
+        "North East",
+        "North West",
+        "South East",
+        "South West",
+        ""
       ],
     },
     parking: {
       type: String,
-      enum: ["Available", "Not Available"],
+      enum: ["Available", "Not Available",""],
     },
     price: {
       type: Number,
     },
-    furnishingStatus: {
+    furnishedStatus: {
       type: String,
-      enum: ["Furnished", "Semi-Furnished", "Unfurnished"],
+      enum: ["Fully Furnished", "Semi Furnished", "Unfurnished",""],
     },
     ownerId: {
       type: mongoose.Schema.Types.ObjectId,

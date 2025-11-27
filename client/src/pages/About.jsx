@@ -1,8 +1,14 @@
 import React from "react";
+import Header from "./Header";
+const token = localStorage.getItem("token");
 
 const About = () => {
   return (
     <div className="bg-gray-50 min-h-screen">
+      {token ? (
+        <Header />
+
+      ) : (null)}
       {/* Hero Section */}
       <section className="bg-blue-700 text-white py-16">
         <div className="max-w-6xl mx-auto px-4 text-center">

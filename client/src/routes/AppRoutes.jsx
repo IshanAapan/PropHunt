@@ -5,7 +5,7 @@ import ForgotPassword from "../pages/ForgotPassword";
 import ResetPassword from "../pages/ResetPassword";
 import Home from "../pages/Home";
 import PostProperty from "../pages/PostProperty";
-import Header from "../pages/Header";
+// import Header from "../pages/Header";
 import Footer from "../pages/Footer";
 import About from "../pages/About";
 import PropertyListing from "../pages/PropertyListing";
@@ -14,9 +14,13 @@ import GetOwnerDetails from "../pages/GetOwnerDetails";
 Contact;
 
 const AppRoutes = () => {
+  // const token = localStorage.getItem("token");
   return (
     <BrowserRouter>
-      <Header />
+      {/* {token ? (
+        <Header />
+
+      ):(null)} */}
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
