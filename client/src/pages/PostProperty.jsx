@@ -97,7 +97,7 @@ const PostProperty = () => {
 
     try {
       console.log("aa gya h");
-      const resp = await axios.post(`${import.meta.env.VITE_API_URL}/v1/property/postproperty`, data, {
+      const resp = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/property/postproperty`, data, {
         headers: {
           Authorization: `Bearer ${token}`
         }
