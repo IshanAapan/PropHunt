@@ -5,6 +5,14 @@ import { Link } from "react-router-dom";
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const token = localStorage.getItem("token");
+  console.log("Header token:", token);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.href = "/login"; // Redirect to login page after logout
+  }
+
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
@@ -30,18 +38,27 @@ const Header = () => {
           >
             Contact
           </Link>
-          <Link
-            to="/postproperty"
+          {token && (
+            <Link
+              to="/postproperty"
+              className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg shadow transition"
+            >
+              Post Your Property
+            </Link>
+          )}
+          {token ? (<Link
+            to="/login"
             className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg shadow transition"
+            onClick={handleLogout}
           >
-            Post Your Property
+            Log Out
           </Link>
-          <Link
+          ) : (<Link
             to="/login"
             className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg shadow transition"
           >
             Sign in
-          </Link>
+          </Link>)}
         </nav>
 
         {/* Mobile Menu Button */}
@@ -112,12 +129,19 @@ const Header = () => {
           >
             Post Your Property
           </Link>
-          <Link
-            to="/signup"
-            className="block bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg shadow transition"
+          {token ? (<Link
+            to="/login"
+            className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg shadow transition"
+            onClick={handleLogout}
+          >
+            Log Out
+          </Link>
+          ) : (<Link
+            to="/login"
+            className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg shadow transition"
           >
             Sign in
-          </Link>
+          </Link>)}
         </div>
       )}
     </header>

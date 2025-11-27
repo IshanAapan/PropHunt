@@ -1,5 +1,6 @@
 import { useState } from "react";
 import PropWorth from "../components/PropWorth";
+import Header from "./Header";
 
 export default function HomePage() {
   const propertyImages = [
@@ -42,7 +43,9 @@ export default function HomePage() {
 
 
   return (
+
     <div className="w-full min-h-screen bg-gray-100">
+      <Header />
       {/* Hero Section */}
       <section className="relative bg-gradient-to-r from-blue-700 to-indigo-900 text-white py-20 px-4">
         <div className="max-w-6xl mx-auto text-center">
@@ -67,7 +70,7 @@ export default function HomePage() {
           </div>
           {/* Search Box */}
           <div className="bg-white text-gray-800 rounded-lg p-6 shadow-lg max-w-5xl mx-auto">
-            {(activeTab === "Buy" || activeTab === "Rent" || activeTab === "PG" || activeTab==="Airbnb") && (
+            {(activeTab === "Buy" || activeTab === "Rent" || activeTab === "PG" || activeTab === "Airbnb") && (
               <>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                   {/* City */}
@@ -113,7 +116,7 @@ export default function HomePage() {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   {/* Flat / Land */}
-                  {(activeTab === "Buy" || activeTab === "Rent" || activeTab==="Airbnb") && (<>
+                  {(activeTab === "Buy" || activeTab === "Rent" || activeTab === "Airbnb") && (<>
                     <div className="flex items-center gap-4">
                       <label className="flex items-center gap-1">
                         <input
@@ -205,7 +208,7 @@ export default function HomePage() {
                         <option value="50 Lakhs">Up to 50 Lakhs</option>
                         <option value="1 Crore">Up to 1 Crore</option>
                       </>)}
-                      {(activeTab === "Rent" || activeTab ==="Airbnb") && (<>
+                      {(activeTab === "Rent" || activeTab === "Airbnb") && (<>
                         <option value="">₹ Budget</option>
                         <option value="25k">Up to 25k</option>
                         <option value="40k">Up to 40k </option>
