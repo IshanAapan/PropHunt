@@ -51,7 +51,7 @@ const Login = () => {
     onSubmit: async (values) => {
       // alert(JSON.stringify(values, null, 2));
       try {
-        const resp = await axios.post(`${import.meta.env.VITE_API_URL}api/v1/user/login`, values);
+        const resp = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/user/login`, values);
         console.log("Login response:", resp.data);
         console.log("Token:", resp.data.token);
         const token = resp.data.token;
