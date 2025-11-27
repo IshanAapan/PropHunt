@@ -13,7 +13,7 @@ app.use(express.json()); // recieve data (JSON) from client and convert to JS Ob
 app.use(express.urlencoded({ extended: true })); // recieve form data from client and convert to JS Object
 
 mongoose
-  .connect(process.env.MONGO_URI)
+  .connect(process.env.MONGODB_URI)
   .then(async () => {
     console.log("Connected to MongoDB");
   })
