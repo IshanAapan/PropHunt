@@ -1,8 +1,12 @@
 import AppRoutes from "./routes/AppRoutes"
 import "./App.css"
+import { Provider } from "react-redux";
+import store from "./redux/store";
 const App = () => {
   return (
-    <AppRoutes />
+    <Provider store={store}>
+      <AppRoutes />
+    </Provider>
   )
 }
 

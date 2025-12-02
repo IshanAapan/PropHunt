@@ -2,12 +2,14 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const PropertyCard = ({ property }) => {
+  console.log("PropertyCards",property);
+  
   const navigate = useNavigate();
   return (
     <div className="bg-white border rounded-lg shadow-sm mb-4">
       {/* Header */}
       <div className="p-4 border-b flex justify-between items-center">
-        <h3 className="font-semibold">{property.title}</h3>
+        <h3 className="font-semibold">{property.projectName}</h3>
         <span className="text-sm text-gray-500">Explore Nearby</span>
       </div>
 
@@ -15,7 +17,7 @@ const PropertyCard = ({ property }) => {
       <div className="flex justify-between items-center border p-4 bg-white shadow-sm">
         {/* Rent */}
         <div className="flex-1 text-center">
-          <h3 className="text-lg font-semibold">₹ {property.rent}</h3>
+          <h3 className="text-lg font-semibold">₹ {property.price}</h3>
           <p className="text-gray-500 text-sm">Rent (Negotiable)</p>
         </div>
 
@@ -31,7 +33,7 @@ const PropertyCard = ({ property }) => {
 
         {/* Area */}
         <div className="flex-1 text-center">
-          <h3 className="text-lg font-semibold">{property.area} sqft</h3>
+          <h3 className="text-lg font-semibold">{property.builtupArea} sqft</h3>
           <p className="text-gray-500 text-sm">Built-up</p>
         </div>
       </div>
@@ -51,7 +53,7 @@ const PropertyCard = ({ property }) => {
             <div className="flex items-center gap-3 p-4">
               <span className="text-xl">🏢</span>
               <div>
-                <p className="font-semibold">{property.type}</p>
+                <p className="font-semibold">{property.propertyType}</p>
                 <p className="text-gray-500 text-xs">Property Type</p>
               </div>
             </div>
@@ -69,7 +71,7 @@ const PropertyCard = ({ property }) => {
             <div className="flex items-center gap-3 p-4">
               <span className="text-xl">🛋️</span>
               <div>
-                <p className="font-semibold">{property.furnishing}</p>
+                <p className="font-semibold">{property.furnishedStatus}</p>
                 <p className="text-gray-500 text-xs">Furnishing</p>
               </div>
             </div>
