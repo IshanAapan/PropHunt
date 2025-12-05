@@ -1,6 +1,8 @@
 import React from "react";
 import { useFormik } from "formik";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Signup = () => {
   // ---------------------- VALIDATION ----------------------
@@ -66,16 +68,18 @@ const Signup = () => {
     onSubmit: async (values) => {
       console.log("Submitting: ", values);
       console.log("API URL:", import.meta.env.VITE_API_URL);
-
-
       try {
-        const resp = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/user/register`, values);
+        const resp = await axios.post(
+          `${import.meta.env.VITE_API_URL}/api/v1/user/register`,
+          values
+        );
         console.log("User registered:", resp.data);
-        alert("User registered successfully!");
+        // alert("User registered successfully!");
+        toast.success("User registered successfully!");
         formik.resetForm();
-
       } catch (error) {
         console.error("Error registering user:", error);
+        toast.error("Error registering user");
       }
     },
   });
@@ -146,10 +150,7 @@ const Signup = () => {
 
             {/* Contact Number */}
             <div>
-              <label
-                htmlFor="mob"
-                className="block mb-1 text-sm text-gray-600"
-              >
+              <label htmlFor="mob" className="block mb-1 text-sm text-gray-600">
                 Contact No.
               </label>
               <input
@@ -259,6 +260,7 @@ const Signup = () => {
           </p>
         </div>
       </div>
+      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 };

@@ -2,6 +2,8 @@ import React from "react";
 import { useFormik } from "formik";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -51,17 +53,22 @@ const Login = () => {
     onSubmit: async (values) => {
       // alert(JSON.stringify(values, null, 2));
       try {
-        const resp = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/user/login`, values);
+        const resp = await axios.post(
+          `${import.meta.env.VITE_API_URL}/api/v1/user/login`,
+          values
+        );
         console.log("Login response:", resp.data);
         console.log("Token:", resp.data.token);
         const token = resp.data.token;
         localStorage.setItem("token", token);
+        toast.success("Login successfully!");
         navigate("/");
       } catch (error) {
         console.error("Error during login:", error);
+        toast.error("Incorrect email/password. Please try again");
       }
-    }
-  })
+    },
+  });
 
   return (
     <div className="flex h-screen w-screen">
@@ -151,6 +158,7 @@ const Login = () => {
           </p>
         </div>
       </div>
+      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 };
