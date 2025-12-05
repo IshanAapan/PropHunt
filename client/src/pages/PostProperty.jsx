@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
 import Header from "../pages/Header";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const PostProperty = () => {
   // const [propertyType, setPropertyType] = useState("Flat");
@@ -89,35 +91,33 @@ const PostProperty = () => {
     setRent("");
   };
 
-
   const imageUrl =
     "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?auto=format&fit=crop&w=800&q=80";
 
   const handleSubmit = async () => {
-
     try {
       console.log("aa gya h");
-      const resp = await axios.post(`${import.meta.env.VITE_API_URL}/api/v1/property/postproperty`, data, {
-        headers: {
-          Authorization: `Bearer ${token}`
+      const resp = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/v1/property/postproperty`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-      });
-      console.log("Property posted successfully:", resp.data)
+      );
+      // console.log("Property posted successfully:", resp.data);
+      toast.success("Property posted successfully:", resp.data);
       resetForm();
-
     } catch (error) {
       console.log("Error posting property:", error);
-
+      toast.error("Failed to post property.");
     }
-
-  }
+  };
 
   return (
     <>
-      {token ? (
-        <Header />
-
-      ) : (null)}
+      {token ? <Header /> : null}
       <div className="min-h-screen bg-gray-100 p-6 flex flex-col lg:flex-row gap-8">
         {/* Left Side */}
         <div className="lg:w-1/2 flex flex-col gap-6">
@@ -198,10 +198,11 @@ const PostProperty = () => {
                 <button
                   key={type}
                   onClick={() => setPropertyType(type)}
-                  className={`flex-1 py-2 border cursor-pointer ${propertyType === type
-                    ? "bg-blue-100 text-blue-600 font-semibold"
-                    : "text-gray-600"
-                    }`}
+                  className={`flex-1 py-2 border cursor-pointer ${
+                    propertyType === type
+                      ? "bg-blue-100 text-blue-600 font-semibold"
+                      : "text-gray-600"
+                  }`}
                 >
                   {type}
                 </button>
@@ -220,10 +221,11 @@ const PostProperty = () => {
                       <button
                         key={bhk}
                         onClick={() => setBhkType(bhk)}
-                        className={`py-2 border cursor-pointer ${bhkType === bhk
-                          ? "bg-blue-100 text-blue-600 font-semibold"
-                          : "text-gray-600"
-                          }`}
+                        className={`py-2 border cursor-pointer ${
+                          bhkType === bhk
+                            ? "bg-blue-100 text-blue-600 font-semibold"
+                            : "text-gray-600"
+                        }`}
                       >
                         {bhk}
                       </button>
@@ -239,10 +241,11 @@ const PostProperty = () => {
                       <button
                         key={count}
                         onClick={() => setBathroomCount(count)}
-                        className={`py-2 border cursor-pointer ${bathroomCount === count
-                          ? "bg-blue-100 text-blue-600 font-semibold"
-                          : "text-gray-600"
-                          }`}
+                        className={`py-2 border cursor-pointer ${
+                          bathroomCount === count
+                            ? "bg-blue-100 text-blue-600 font-semibold"
+                            : "text-gray-600"
+                        }`}
                       >
                         {count}
                       </button>
@@ -258,10 +261,11 @@ const PostProperty = () => {
                       <button
                         key={opt}
                         onClick={() => setLookingTo(opt)}
-                        className={`flex-1 py-2 border cursor-pointer ${lookingTo === opt
-                          ? "bg-blue-100 text-blue-600 font-semibold"
-                          : "text-gray-600"
-                          }`}
+                        className={`flex-1 py-2 border cursor-pointer ${
+                          lookingTo === opt
+                            ? "bg-blue-100 text-blue-600 font-semibold"
+                            : "text-gray-600"
+                        }`}
                       >
                         {opt}
                       </button>
@@ -447,6 +451,7 @@ const PostProperty = () => {
             </button>
           </div>
         </div>
+        <ToastContainer position="top-right" autoClose={3000} />
       </div>
     </>
   );
