@@ -456,7 +456,7 @@ const GetOwnerDetails = () => {
 
               {/* Similar Properties */}
               <div>
-                <h3 className="text-lg font-semibold mb-4">
+                <h3 className="text-lg font-semibold mb-4 mt-4">
                   People also viewed
                 </h3>
 
