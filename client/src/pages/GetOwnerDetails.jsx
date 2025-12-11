@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "./Header";
 import BoltIcon from "@mui/icons-material/Bolt";
@@ -159,8 +159,9 @@ const SimilarCard = ({ title, price, sqft }) => (
 
 const GetOwnerDetails = () => {
   const navigate = useNavigate();
+  const [mobileExpanded, setMobileExpanded] = useState(false);
 
-  // flattened list; we'll use only first 18 for the 3 bands (3 bands * 6 items)
+  // flattened list; we'll use only first 18 for the mobile behaviour
   const amenitiesList = [
     "Power Back Up",
     "Lift",
@@ -183,16 +184,15 @@ const GetOwnerDetails = () => {
     // ...more (ignored for this layout)
   ];
 
-  // chunk into 3 horizontal rows; each row has 6 items
+  // chunk into 3 horizontal rows; each row has 6 items (desktop presentation kept)
   const rows = [];
   const first18 = amenitiesList.slice(0, 18);
   for (let i = 0; i < first18.length; i += 6) {
     rows.push(first18.slice(i, i + 6));
   }
 
-  // Helper: given a row (6 items) build 3 columns each with 2 items
+  // Helper: given a row (6 items) build 3 columns each with 2 items (desktop)
   const renderRow = (rowItems, rowIndex) => {
-    // rowItems.length === 6
     return (
       <div key={rowIndex} className="border-2 rounded-lg mb-4 p-4 bg-white">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -221,6 +221,12 @@ const GetOwnerDetails = () => {
       </div>
     );
   };
+
+  // MOBILE: single block - show first 3 by default, rest in "view more"
+  const mobileVisibleCount = 3;
+  const mobileShown = mobileExpanded
+    ? first18
+    : first18.slice(0, mobileVisibleCount);
 
   return (
     <>
@@ -410,8 +416,43 @@ const GetOwnerDetails = () => {
               {/* Amenities heading */}
               <h3 className="text-xl font-semibold mb-4">Amenities</h3>
 
-              {/* Render 3 horizontal bordered rows */}
-              <div>{rows.map((rowItems, idx) => renderRow(rowItems, idx))}</div>
+              {/* MOBILE: single block with view more (visible only on small screens) */}
+              <div className="md:hidden">
+                <div className="bg-white rounded-lg border p-4">
+                  <div className="space-y-3">
+                    {mobileShown.map((amenity, idx) => (
+                      <div
+                        key={amenity}
+                        className="flex items-center gap-3 text-sm text-gray-700"
+                      >
+                        <div className="w-10 h-10 flex items-center justify-center rounded-md border text-blue-600 bg-white">
+                          <AmenityIcon name={amenity} />
+                        </div>
+                        <div className="flex-1">{amenity}</div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="mt-3 flex justify-end">
+                    <button
+                      onClick={() => setMobileExpanded((s) => !s)}
+                      aria-expanded={mobileExpanded}
+                      className="text-blue-600 font-medium text-sm"
+                    >
+                      {mobileExpanded
+                        ? "View less"
+                        : `View more (${first18.length - mobileVisibleCount})`}
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* DESKTOP: existing 3 horizontal bordered rows (kept as before) */}
+              <div className="hidden md:block">
+                <div>
+                  {rows.map((rowItems, idx) => renderRow(rowItems, idx))}
+                </div>
+              </div>
 
               {/* Similar Properties */}
               <div>
